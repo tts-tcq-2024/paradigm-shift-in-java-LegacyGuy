@@ -2,36 +2,25 @@ package vitals;
 
 public class Main {
     static boolean batteryIsOk(float temperature, float soc, float chargeRate) {
-        return isTemperatureOk(temperature) && isSocOk(soc) && isChargeRateOk(chargeRate);
+        return checkAndReport("Temperature", temperature, 0, 45) &&
+               checkAndReport("State of Charge", soc, 20, 80) &&
+               checkAndReport("Charge Rate", chargeRate, 0, 0.8f);
     }
 
-    static boolean isTemperatureOk(float temperature) {
-        boolean isOk = temperature >= 0 && temperature <= 45;
-        if (!isOk) {
-            System.out.println("Temperature is out of range!");
+    static boolean checkAndReport(String parameter, float value, float min, float max) {
+        if (value < min) {
+            System.out.println(parameter + " is too low Value: " + value + ", Min: " + min);
+            return false;
+        } else if (value > max) {
+            System.out.println(parameter + " is too high! Value: " + value + ", Max: " + max);
+            return false;
         }
-        return isOk;
-    }
-
-    static boolean isSocOk(float soc) {
-        boolean isOk = soc >= 20 && soc <= 80;
-        if (!isOk) {
-            System.out.println("State of Charge is out of range!");
-        }
-        return isOk;
-    }
-
-    static boolean isChargeRateOk(float chargeRate) {
-        boolean isOk = chargeRate <= 0.8;
-        if (!isOk) {
-            System.out.println("Charge Rate is out of range!");
-        }
-        return isOk;
+        return true;
     }
 
     public static void main(String[] args) {
-        assert(batteryIsOk(25, 70, 0.7f) == true);
-        assert(batteryIsOk(50, 85, 0.0f) == false);
+        assert (batteryIsOk(25, 70, 0.7f) == true);
+        assert (batteryIsOk(50, 85, 0.0f) == false); 
         System.out.println("Some more tests needed");
     }
 }
