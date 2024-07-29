@@ -7,8 +7,8 @@ class BatteryChecker {
     static String language = "EN"; // Default language
 
     // Messages for different languages
-    static Map<String, Map<String, String>> messages = new HashMap<>() {{
-        put("EN", new HashMap<>() {{
+    static Map<String, Map<String, String>> messages = new HashMap<String, Map<String, String>>() {{
+        put("EN", new HashMap<String, String>() {{
             put("LOW_TEMPERATURE", "Temperature is too low");
             put("HIGH_TEMPERATURE", "Temperature is too high");
             put("LOW_SOC", "State of Charge is too low");
@@ -22,7 +22,7 @@ class BatteryChecker {
             put("LOW_CHARGE_RATE_WARNING", "Warning: Approaching low charge rate");
             put("HIGH_CHARGE_RATE_WARNING", "Warning: Approaching high charge rate");
         }});
-        put("DE", new HashMap<>() {{
+        put("DE", new HashMap<String, String>() {{
             put("LOW_TEMPERATURE", "Temperatur ist zu niedrig");
             put("HIGH_TEMPERATURE", "Temperatur ist zu hoch");
             put("LOW_SOC", "Ladezustand ist zu niedrig");
