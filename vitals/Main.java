@@ -45,18 +45,43 @@ class BatteryChecker {
     }
 
     static boolean checkAndReport(String parameter, float value, float min, float max, float warningTolerance) {
+        if (isLow(parameter, value, min)) return false;
+        if (isLowWarning(parameter, value, min, warningTolerance)) return true;
+        if (isHigh(parameter, value, max)) return false;
+        if (isHighWarning(parameter, value, max, warningTolerance)) return true;
+        return true;
+    }
+
+    static boolean isLow(String parameter, float value, float min) {
         if (value < min) {
             System.out.println(getMessage(parameter, "LOW"));
-            return false;
-        } else if (value < min + warningTolerance) {
-            System.out.println(getMessage(parameter, "LOW_WARNING"));
-        } else if (value > max) {
-            System.out.println(getMessage(parameter, "HIGH"));
-            return false;
-        } else if (value > max - warningTolerance) {
-            System.out.println(getMessage(parameter, "HIGH_WARNING"));
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    static boolean isLowWarning(String parameter, float value, float min, float warningTolerance) {
+        if (value < min + warningTolerance) {
+            System.out.println(getMessage(parameter, "LOW_WARNING"));
+            return true;
+        }
+        return false;
+    }
+
+    static boolean isHigh(String parameter, float value, float max) {
+        if (value > max) {
+            System.out.println(getMessage(parameter, "HIGH"));
+            return true;
+        }
+        return false;
+    }
+
+    static boolean isHighWarning(String parameter, float value, float max, float warningTolerance) {
+        if (value > max - warningTolerance) {
+            System.out.println(getMessage(parameter, "HIGH_WARNING"));
+            return true;
+        }
+        return false;
     }
 
     static String getMessage(String parameter, String condition) {
